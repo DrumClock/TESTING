@@ -1,6 +1,38 @@
 [gcode_macro VARIABLE]
 gcode:  
 
+variable_aaaa : {'gap': {'mode_copy': 134, 'mode_mirror': 309} } 
+
+#-----------------------------------------
+
+[gcode_macro GAP]
+gcode:  
+
+    {% set user_vars = printer["gcode_macro VARIABLE"] %} 
+    {% set name = "aaaa" %}    # name variable
+    {% set init = user_vars[name] %}  # default preset     
+       
+    {action_respond_info("mode_mirror %s " %   (init.gap.mode_mirror))}  
+    {action_respond_info("mode_copy %s " %   (init.gap.mode_copy))}  
+    
+
+     {% set axis = printer.configfile.settings.dual_carriage.axis %}
+     
+     {% set X_max = [(init.gap.mode_copy|int), (printer.configfile.config[('stepper_'+axis)].position_max|int /2)|int ]|max %}
+     
+     {% set X_min = (printer.configfile.config['dual_carriage'].safe_distance)|int 
+                 if printer.configfile.config['dual_carriage'].safe_distance is defined
+               else ( printer.configfile.config[('stepper_'+axis)].position_min|int) |abs %}
+     
+     {action_respond_info("X_max %s " %   (X_max))} 
+     {action_respond_info("X_min %s " %   (X_min))} 
+
+######################################################################################################
+
+
+[gcode_macro VARIABLE]
+gcode:  
+
 variable_asdf : { } 
 
 #-----------------------------------------
