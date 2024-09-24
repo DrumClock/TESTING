@@ -20,10 +20,10 @@ enable: { 'POWER_DETECT_OFF' in  printer['gcode'].commands }
 
 ------------------------------------------------------
 ```
-### Disable TRIGGER_RUNOUT macro  for the first print layer
+### Disable TRIGGER_RUNOUT macro for the first print layer
+{% set enable_runout = true if printer['gcode_move'].gcode_position.z > 0.3 else false %}
 
- {% if   printer['virtual_sdcard'].is_active == true 
-    and  printer['gcode_move'].gcode_position.z > 0.3  %}
+{% if  printer['virtual_sdcard'].is_active == true  and  enable_runout  %}
 	
 	   TRIGGER_RUNOUT .....
  
