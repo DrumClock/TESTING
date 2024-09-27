@@ -30,3 +30,11 @@ enable: { 'POWER_DETECT_OFF' in  printer['gcode'].commands }
  {% endif %}
 	
 ```
+-------------------------------------------------------
+**EMERGENCY button**
+
+```
+[gcode_button emergency_stop]
+pin: PA3
+press_gcode:  {action_emergency_stop("Press EMERGENCY STOP button !")}
+```
