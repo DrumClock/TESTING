@@ -46,17 +46,22 @@ press_gcode:  {action_emergency_stop("Press EMERGENCY STOP button !")}
 ```
 [gcode_macro DUMP_CONFIG]
 description: Debug: Print all entries of the printer config object
-#### DUMP_CONFIG s=extruder
 gcode:
- {% set show = params.S|lower %}
- {% set parameters = namespace(output = '') %}
-  {% for name1 in printer.configfile.config %}
-     {% if name1.split(' ')[0] == show %}        
-        {% for name2 in printer.configfile.config[name1] %}
-              {% set param = "printer.configfile.config['%s'].%s = %s" % (name1, name2, printer.configfile.config[name1][name2]) %}
-        {% set parameters.output = parameters.output +  param + "\n" %}
-      {% endfor %}
-    {% endif %}
-  {% endfor %}
-  {action_respond_info(parameters.output)}
+ #### DUMP_CONFIG s=extruder
+  {%if 'S' in params %}
+    {% set show = params.S|lower %}
+    {% set parameters = namespace(output = '') %}
+      {% for name1 in printer.configfile.config %}
+        {% if name1.split(' ')[0] == show %}        
+         {% for name2 in printer.configfile.config[name1] %}
+          {% set param = "printer.configfile.config['%s'].%s = %s" % (name1, name2, printer.configfile.config[name1][name2]) %}
+          {% set parameters.output = parameters.output +  param + "\n" %}
+         {% endfor %}
+       {% endif %}
+     {% endfor %}
+   {% if  parameters.output|length == 0 %} {% set  parameters.output = "Nothing found for \"DUMP_CONFIG %s\"" % rawparams %} {% endif %}
+    {action_respond_info(parameters.output)}
+  {% else %}
+   {action_respond_info("WARNING: parameter S needed call e.g. DUMP_CONFIG S='printer'")}
+  {% endif %} 
 ```
