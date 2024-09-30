@@ -14,6 +14,10 @@ name: Power supply
 **funkcni**
 enable: { 'POWER_DETECT_OFF' in  printer['gcode'].commands }
 
+
+**???**
+ enable: { 'gcode_macro POWER_DETECT_OFF' is defined }
+
 ------------------------------------------------------
 
 **enable: { 'xxx' in  printer['gcode'].commands }**
