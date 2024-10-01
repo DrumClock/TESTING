@@ -1,10 +1,9 @@
-**upravit LCD menu :**
+**upravit v LCD menu :**
 
 ```
 [menu __main __user __auto_power_off]
 type: list
-#enable: { 'gcode_macro POWER_DETECT_OFF' in printer }
-enable: { 'POWER_DETECT_OFF' in  printer['gcode'].commands }
+enable: { 'gcode_macro POWER_DETECT_OFF' in printer }
 name: Power supply  
 ```
 
@@ -14,13 +13,9 @@ name: Power supply
 **funkcni**
 enable: { 'POWER_DETECT_OFF' in  printer['gcode'].commands }
 
-
-**???**
+**nebo**
  enable: { 'gcode_macro POWER_DETECT_OFF' is defined }
 
-------------------------------------------------------
-
-**enable: { 'xxx' in  printer['gcode'].commands }**
 
 ------------------------------------------------------
 **Ignorovat TRIGGER_RUNOUT macro pro první vrstvi tisku**
