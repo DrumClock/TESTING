@@ -15,7 +15,20 @@ enable: { 'POWER_DETECT_OFF' in  printer['gcode'].commands }
 
 **nebo**
  enable: { 'gcode_macro POWER_DETECT_OFF' is defined }
+ 
+-----------------------------------------------------------
 
+**???**
+ enable: {printer.gcode_macro POWER_DETECT_OFF.enabled}
+
+```
+### menu ERCF ###
+[menu __main __ERCF]
+enable: {printer.ercf.enabled}
+type: list
+name: ERCF
+index: 6
+```
 
 ------------------------------------------------------
 **Ignorovat TRIGGER_RUNOUT macro pro první vrstvi tisku**
